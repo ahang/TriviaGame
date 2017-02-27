@@ -1,3 +1,8 @@
+
+    time.begin();
+
+    console.log(time);
+
 $(document).ready(function() {
     console.log("Ready");
     var correct = 0;
@@ -58,23 +63,77 @@ $(document).ready(function() {
     /////////////////////
 
     //set the counter for the countdown function to decrease by 1 second
-    function begin() {
-        counter = setInterval(countDown, 1000);
-    }
+    var time = {
+        timer: 30,
+        questCount: 0,
+        skipped: 0,
 
-    function countDown() {
-        timer--;
-        $(".timer").html("Time Remaining: " + timer + " Seconds");
-        //checks to see if the timer has ran out
-        if(timer === 0){
-            stop(); //stops the counters
-            questCount++; //increase the question count
-            skipped++; //increase the skipped questions
+        begin: function() {
+            counter = setInterval(time.countDown, 1000);
+        },
+
+        countDown: function() {
+            time.timer--;
+            $(".timer").html("Time Remaining: " + time.timer + " Seconds");
+            //checks to see if the timer has ran out
+            if(time.timer === 0){
+                time.stop(); //stops the counters
+                time.questCount++; //increase the question count
+                time.skipped++; //increase the skipped questions
+            }
+        },
+        stop: function() {
+            clearInterval(time.counter);
         }
-    }
-    //stop the counter countdown
-    function stop() {
-        clearInterval(counter);
+    };
+    // var time = {
+    //     begin: function() {
+    //         counter = setInterval(countDown, 1000);
+    //     },
+
+    //     countDown: function() {
+    //         timer--;
+    //         $(".timer").html("Time Remaining: " + timer + " Seconds");
+    //         //checks to see if the timer has ran out
+    //         if(timer === 0){
+    //             stop(); //stops the counters
+    //             questCount++; //increase the question count
+    //             skipped++; //increase the skipped questions
+    //         }
+    //     },
+    //     stop: function() {
+    //         clearInterval(time.counter);
+    //     },
+    // };
+    // function begin() {
+    //     counter = setInterval(countDown, 1000);
+    // }
+
+    // function countDown() {
+    //     timer--;
+    //     $(".timer").html("Time Remaining: " + timer + " Seconds");
+    //     //checks to see if the timer has ran out
+    //     if(timer === 0){
+    //         stop(); //stops the counters
+    //         questCount++; //increase the question count
+    //         skipped++; //increase the skipped questions
+    //     }
+    // }
+    // //stop the counter countdown
+    // function stop() {
+    //     clearInterval(counter);
+    // }
+
+    //Populating the Questions
+
+    function displayQuestions() {
+        var questionDiv = $(".questionDiv");
+
+        if (quesCount === 7) {
+            questionDiv.html("<h2>")
+
+        }
+
     }
 
     //
