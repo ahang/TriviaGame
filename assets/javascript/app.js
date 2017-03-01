@@ -1,12 +1,7 @@
 
 $(document).ready(function() {
     console.log("Ready");
-    var correct = 0;
-    var incorrect = 0;
-    var skipped = 0;
-    var numQues = 0;
-    var timer = 4;
-
+    
     var triviaGame = {
         correct: 0,
         incorrect: 0,
@@ -14,6 +9,10 @@ $(document).ready(function() {
         skipped: 0,
         timer: 4,
         counter: 0,
+        questionArr: [],
+        currentQues: 0,
+        i: "",
+
         //Setting up the question object array with question/choices/answer
         questions: [
             {
@@ -59,10 +58,30 @@ $(document).ready(function() {
             console.log("I have begun the game!");
             $("#startButton").hide();
             //triviaGame.showQuestion();
-            triviaGame.endScreen();
+            triviaGame.showQuestion();
         },
+        //This should randomize the questions 
+        randomQuestion: function() {
+
+
+        },
+
+        //shows the question from the array
+        showQuestion: function() {
+            triviaGame.begin();
+            $(".question").html(triviaGame.questions[0].question)
+            console.log("THIS IS QUESTIOn");
+        },
+
+        nextQuestion: function() {
+        },
+        //compares if the user selection is correct 
+        compare: function() {
+        },
+        
         //setting up the counter to decrease the timer by 1 second
         begin: function() {
+            triviaGame.timer = 4;
             triviaGame.counter = setInterval(triviaGame.countDown, 1000);
             triviaGame.updateTimer();
         },
@@ -78,6 +97,7 @@ $(document).ready(function() {
             if(triviaGame.timer === 0){
                 //If its 0. Stop the countdown
                 triviaGame.stop();
+                triviaGame.skippedAns();
             }
         },
         //clearInterval
@@ -85,14 +105,27 @@ $(document).ready(function() {
             clearInterval(triviaGame.counter);
         },
 
-        //shows the question from the array
-        showQuestion: function() {
+        correctAns: function() {
+            triviaGame.correct++;
             $(".question").empty();
-            console.log("This is a question");
-            triviaGame.begin();
-            $(".question").append("<h2>" + triviaGame.questions[0].question);
         },
-        //End SCreen
+
+        incorrectAns: function() {
+            triviaGame.incorrect++;
+            $(".question").empty();
+        },
+        //What happens when the user timesout on a question
+        skippedAns: function() {
+            triviaGame.clear();
+            triviaGame.skipped++;
+            console.log(triviaGame.skipped);
+            setTimeout(function() {
+                triviaGame.showQuestion();
+            }, 3000);
+            $(".question").append("What took slowpoke");
+        },
+
+        //End Screen
         endScreen: function() {
             console.log("This is the end");
             var questionDiv = $(".question");
@@ -103,18 +136,21 @@ $(document).ready(function() {
             questionDiv.append("<br><button id='playAgain'>Play Again?</button>");
             $("#playAgain").on("click", function() {
                 $("#playAgain").hide();
-                triviaGame.correct = 0;
-                triviaGame.incorrect = 0;
-                triviaGame.incorrect = 0;
-                triviaGame.skipped = 0;
+                triviaGame.clear();
                 triviaGame.showQuestion();
             })
         },
 
         clear: function() {
+            triviaGame.correct = 0;
+            triviaGame.incorrect = 0;
+            triviaGame.incorrect = 0;
+            triviaGame.skipped = 0;
+            $(".question").empty();
+            $(".timer").empty();
 
         }
-    }
+    };
 
 
     //Theme?
@@ -132,11 +168,13 @@ $(document).ready(function() {
                 //Loops through all questions
                 //Shows how many correct answer and incorrect answer and unanswered
                 //gives users Start Over option
-
+                //debugger;
     //on click game start
     $("#startButton").on("click", function() {
         triviaGame.startGame();
     })
+
+
 
 
 });
