@@ -7,7 +7,15 @@ $(document).ready(function() {
     var numQues = 0;
     var timer = 4;
 
-    var questions = [
+    var triviaGame = {
+        correct: 0,
+        incorrect: 0,
+        numQues: 0,
+        skipped: 0,
+        timer: 4,
+        counter: 0,
+        //Setting up the question object array with question/choices/answer
+        questions: [
             {
                 question: "Who was the first villian Goku faced in Dragon Ball Z?",
                 choices: ["Vegeta", "Nappa", "Raditz", "Piccolo"],
@@ -44,36 +52,35 @@ $(document).ready(function() {
                 choices: ["Goku", "Future Trunks", "Piccolo", "Goten"],
                 ans: "Future Trunks"
             }
-        ];
+        ],
 
-    var triviaGame = {
-        correct: 0,
-        incorrect: 0,
-        numQues: 0,
-        skipped: 0,
-        timer: 4,
-        counter: 0,
-        //starts the game and startings showing the first question
+        //starts the game and starts showing the first question
         startGame: function() {
             console.log("I have begun the game!");
             $("#startButton").hide();
             //triviaGame.showQuestion();
-            triviaGame.finalScreen();
+            triviaGame.endScreen();
         },
-
+        //setting up the counter to decrease the timer by 1 second
         begin: function() {
             triviaGame.counter = setInterval(triviaGame.countDown, 1000);
+            triviaGame.updateTimer();
         },
-
+        //Updating the timer on the page
+        updateTimer: function( time ) {
+            $(".timer").html("Time Remaining: " + triviaGame.timer + " seconds");
+        },
+        //Begin Countdown! and checking to see if the timer is equal to 0. 
         countDown: function() {
             console.log("Tick Tock Tick Tock");
             triviaGame.timer--;
-            $(".timer").html("Time Remaining: " + triviaGame.timer + " seconds");
+            triviaGame.updateTimer();
             if(triviaGame.timer === 0){
+                //If its 0. Stop the countdown
                 triviaGame.stop();
             }
         },
-
+        //clearInterval
         stop: function() {
             clearInterval(triviaGame.counter);
         },
@@ -83,14 +90,13 @@ $(document).ready(function() {
             $(".question").empty();
             console.log("This is a question");
             triviaGame.begin();
-            $(".question").append("<h2>" + questions[0].question);
-            $(".question").append("<h2> <br>" + questions[0].choices);
+            $(".question").append("<h2>" + triviaGame.questions[0].question);
         },
-
-        finalScreen: function() {
+        //End SCreen
+        endScreen: function() {
             console.log("This is the end");
             var questionDiv = $(".question");
-            $(".timer").remove();
+            $(".timer").empty();
             questionDiv.append("Number of Correct Answers: " + triviaGame.correct);
             questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect);
             questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped);
@@ -110,26 +116,6 @@ $(document).ready(function() {
         }
     }
 
-    // //setting countDown function
-    // //Once timer hits 0 ends the timer count
-    // function countDown() {
-    //     timer--;
-    //     $(".timer").html("Time Remaining: " + timer + " Seconds");
-    //     //checks to see if the timer has ran out
-    //     if(timer === 0){
-    //         stop(); //stops the counters
-    //     }
-    // }
-
-    // //Setting Timer Function
-    // function begin() {
-    //     counter = setInterval(countDown, 1000);
-    // } //setting count to decrease by 1 second
-
-    // //stop the counter countdown
-    // function stop() {
-    //     clearInterval(counter);
-    // }
 
     //Theme?
 //start Function
