@@ -1,146 +1,135 @@
 
-    time.begin();
-
-    console.log(time);
-
 $(document).ready(function() {
     console.log("Ready");
     var correct = 0;
     var incorrect = 0;
     var skipped = 0;
-    var questCount = 0;
-    var timer = 30;
+    var numQues = 0;
+    var timer = 4;
 
     var questions = [
             {
-                q: "Who was the first villian Goku faced in Dragon Ball Z?",
+                question: "Who was the first villian Goku faced in Dragon Ball Z?",
                 choices: ["Vegeta", "Nappa", "Raditz", "Piccolo"],
                 ans: "Raditz"
             },
             {
-                q: "When did Goku first achieved Super Saiyan?",
+                question: "When did Goku first achieved Super Saiyan?",
                 choices: ["After fighting Vegeta", "After witnessing the death of Krillin", "After Freiza gave him a hug", "All the above"],
                 ans: "After witnessing the death of Krillin"
             },
             {
-                q: "Who gave Future Trunks his sword?",
+                question: "Who gave Future Trunks his sword?",
                 choices: ["Taipon", "Gohan", "Vegeta", "What sword?"],
                 ans: "Taipon"
             },
             {
-                q: "Gotenks is a fusion between what two characters?",
+                question: "Gotenks is a fusion between what two characters?",
                 choices: ["Vegeta & Goku", "Trunks and Gohan", "Goten and Trunks", "Gohan and Piccolo"],
                 ans: "Goten and Trunks"
             },
             {
-                q: "When Goku was a baby, who did he kept awake by crying constantlly?",
+                question: "When Goku was a baby, who did he kept awake by crying constantlly?",
                 choices: ["Vegeta", "Gohan", "Goten", "Broly"],
                 ans: "Broly"
             },
             {
-                q: "Who defeated Cell?",
+                question: "Who defeated Cell?",
                 choices: ["Goku", "Gohan", "Future Trunks", "Vegeta"],
                 ans: "Gohan"
 
             },
             {
-                q: "Which Z fighter easily kills Mecha Freiza and King Cold?",
+                question: "Which Z fighter easily kills Mecha Freiza and King Cold?",
                 choices: ["Goku", "Future Trunks", "Piccolo", "Goten"],
                 ans: "Future Trunks"
             }
         ];
 
-    //Iniatalizing the game
-    function initalizeGame() {
-        correct = 0;
-        incorrect = 0;
-        skipped =0;
-        questCount = 0;
-    }
-
-    /////////////////////
-    // Timer Functions //
-    /////////////////////
-
-    //set the counter for the countdown function to decrease by 1 second
-    var time = {
-        timer: 30,
-        questCount: 0,
+    var triviaGame = {
+        correct: 0,
+        incorrect: 0,
+        numQues: 0,
         skipped: 0,
+        timer: 4,
+        counter: 0,
+        //starts the game and startings showing the first question
+        startGame: function() {
+            console.log("I have begun the game!");
+            $("#startButton").hide();
+            //triviaGame.showQuestion();
+            triviaGame.finalScreen();
+        },
 
         begin: function() {
-            counter = setInterval(time.countDown, 1000);
+            triviaGame.counter = setInterval(triviaGame.countDown, 1000);
         },
 
         countDown: function() {
-            time.timer--;
-            $(".timer").html("Time Remaining: " + time.timer + " Seconds");
-            //checks to see if the timer has ran out
-            if(time.timer === 0){
-                time.stop(); //stops the counters
-                time.questCount++; //increase the question count
-                time.skipped++; //increase the skipped questions
+            console.log("Tick Tock Tick Tock");
+            triviaGame.timer--;
+            $(".timer").html("Time Remaining: " + triviaGame.timer + " seconds");
+            if(triviaGame.timer === 0){
+                triviaGame.stop();
             }
         },
+
         stop: function() {
-            clearInterval(time.counter);
+            clearInterval(triviaGame.counter);
+        },
+
+        //shows the question from the array
+        showQuestion: function() {
+            $(".question").empty();
+            console.log("This is a question");
+            triviaGame.begin();
+            $(".question").append("<h2>" + questions[0].question);
+            $(".question").append("<h2> <br>" + questions[0].choices);
+        },
+
+        finalScreen: function() {
+            console.log("This is the end");
+            var questionDiv = $(".question");
+            $(".timer").remove();
+            questionDiv.append("Number of Correct Answers: " + triviaGame.correct);
+            questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect);
+            questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped);
+            questionDiv.append("<br><button id='playAgain'>Play Again?</button>");
+            $("#playAgain").on("click", function() {
+                $("#playAgain").hide();
+                triviaGame.correct = 0;
+                triviaGame.incorrect = 0;
+                triviaGame.incorrect = 0;
+                triviaGame.skipped = 0;
+                triviaGame.showQuestion();
+            })
+        },
+
+        clear: function() {
+
         }
-    };
-    // var time = {
-    //     begin: function() {
-    //         counter = setInterval(countDown, 1000);
-    //     },
+    }
 
-    //     countDown: function() {
-    //         timer--;
-    //         $(".timer").html("Time Remaining: " + timer + " Seconds");
-    //         //checks to see if the timer has ran out
-    //         if(timer === 0){
-    //             stop(); //stops the counters
-    //             questCount++; //increase the question count
-    //             skipped++; //increase the skipped questions
-    //         }
-    //     },
-    //     stop: function() {
-    //         clearInterval(time.counter);
-    //     },
-    // };
-    // function begin() {
-    //     counter = setInterval(countDown, 1000);
-    // }
-
+    // //setting countDown function
+    // //Once timer hits 0 ends the timer count
     // function countDown() {
     //     timer--;
     //     $(".timer").html("Time Remaining: " + timer + " Seconds");
     //     //checks to see if the timer has ran out
     //     if(timer === 0){
     //         stop(); //stops the counters
-    //         questCount++; //increase the question count
-    //         skipped++; //increase the skipped questions
     //     }
     // }
+
+    // //Setting Timer Function
+    // function begin() {
+    //     counter = setInterval(countDown, 1000);
+    // } //setting count to decrease by 1 second
+
     // //stop the counter countdown
     // function stop() {
     //     clearInterval(counter);
     // }
-
-    //Populating the Questions
-
-    function displayQuestions() {
-        var questionDiv = $(".questionDiv");
-
-        if (quesCount === 7) {
-            questionDiv.html("<h2>")
-
-        }
-
-    }
-
-    //
-    //
-    //
-
-
 
     //Theme?
 //start Function
@@ -158,7 +147,10 @@ $(document).ready(function() {
                 //Shows how many correct answer and incorrect answer and unanswered
                 //gives users Start Over option
 
-
+    //on click game start
+    $("#startButton").on("click", function() {
+        triviaGame.startGame();
+    })
 
 
 });
