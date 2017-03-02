@@ -16,38 +16,38 @@ $(document).ready(function() {
             {
                 question: "Who was the first villian Goku faced in Dragon Ball Z?",
                 choices: ["Vegeta", "Nappa", "Raditz", "Piccolo"],
-                ans: "Raditz"
+                ans: 3
             },
             {
                 question: "When did Goku first achieved Super Saiyan?",
                 choices: ["After fighting Vegeta", "After witnessing the death of Krillin", "After Freiza gave him a hug", "All the above"],
-                ans: "After witnessing the death of Krillin"
+                ans: 1
             },
             {
                 question: "Who gave Future Trunks his sword?",
                 choices: ["Taipon", "Gohan", "Vegeta", "What sword?"],
-                ans: "Taipon"
+                ans: 0
             },
             {
                 question: "Gotenks is a fusion between what two characters?",
                 choices: ["Vegeta & Goku", "Trunks and Gohan", "Goten and Trunks", "Gohan and Piccolo"],
-                ans: "Goten and Trunks"
+                ans: 2
             },
             {
                 question: "When Goku was a baby, who did he kept awake by crying constantlly?",
                 choices: ["Vegeta", "Gohan", "Goten", "Broly"],
-                ans: "Broly"
+                ans: 3
             },
             {
                 question: "Who defeated Cell?",
                 choices: ["Goku", "Gohan", "Future Trunks", "Vegeta"],
-                ans: "Gohan"
+                ans: 1
 
             },
             {
                 question: "Which Z fighter easily kills Mecha Freiza and King Cold?",
                 choices: ["Goku", "Future Trunks", "Piccolo", "Goten"],
-                ans: "Future Trunks"
+                ans: 1
             }
         ]
     };
@@ -67,7 +67,7 @@ $(document).ready(function() {
 
 //shows the question from the array
     var showQuestion = function() {
-        if (triviaGame.currentQues < 6) {
+        if (triviaGame.currentQues < triviaGame.questions.length) {
             triviaGame.currentQues++;
             var currentQues = triviaGame.questions[triviaGame.currentQues].question;
             begin();
@@ -75,7 +75,7 @@ $(document).ready(function() {
             for (var i = 0; i < triviaGame.questions[triviaGame.currentQues].choices.length; i++){
                 var addBtn = $("<div>")
                 addBtn.addClass("btn options");
-                addBtn.data("data-num", i);
+                addBtn.data("num", i);
                 addBtn.text(triviaGame.questions[triviaGame.currentQues].choices[i]);
                 $(".choices").append(addBtn);
             }
@@ -133,10 +133,11 @@ $(document).ready(function() {
     };
 
     var incorrectAns = function() {
+        var question = triviaGame.questions[triviaGame.currentQues];
         clear();
         triviaGame.incorrect++;
         $(".question").empty();
-        $(".question").append("Sorry the correct answer is " +  "<br>" + triviaGame.questions[triviaGame.currentQues].ans);
+        $(".question").append("Sorry the correct answer is " +  "<br>" + question.choices[question.ans]);
         setTimeout(function() {
             showQuestion();
         }, 3000);
@@ -174,6 +175,7 @@ $(document).ready(function() {
     };
 
     var clear = function() {
+        stop();
         $(".question").empty();
         $(".timer").empty();
         $(".choices").empty();
@@ -203,11 +205,7 @@ $(document).ready(function() {
     })
     $(".choices").on("click", function() {
         console.log("This is checking");
-        if($(this).data("num") === triviaGame.questions[triviaGame.currentQues].ans) {
-            correntAns();
-        } else {
-            incorrectAns();
-        }
+        compare();
         console.log("I have selected a button");
     })
 
