@@ -37,7 +37,7 @@ body {
 
 
 .choices {
-    width: 30%;
+    width: 40%;
     margin: 0 auto;
     /*//border: 2px solid red;*/
 }
@@ -54,5 +54,5 @@ body {
 
 .question img {
     height: 500px;
-    width: 300px;
+    width: 400px;
 }

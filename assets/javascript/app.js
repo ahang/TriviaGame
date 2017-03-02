@@ -43,15 +43,17 @@ $(document).ready(function() {
                 img: "assets/img/rocket.gif"
             },
             {
-                question: "Who defeated Cell?",
-                choices: ["Goku", "Gohan", "Future Trunks", "Vegeta"],
-                ans: 1
+                question: "What is Yondu's weapon of choice?",
+                choices: ["Bow & Arrow", "Needles", "Samurai Sword", "Yaka Arrow"],
+                ans: 3,
+                img: "assets/img/yondu.gif"
 
             },
             {
-                question: "Which Z fighter easily kills Mecha Freiza and King Cold?",
-                choices: ["Goku", "Future Trunks", "Piccolo", "Goten"],
-                ans: 1
+                question: "What did Star Lord challenge Ronan the Accuser to?",
+                choices: ["A Coin Toss", "Rock, Paper, Scissors", "A Dance Off", "A Duel to the Death"],
+                ans: 2,
+                img: "assets/img/ronan.gif"
             }
         ]
     };
@@ -178,10 +180,11 @@ $(document).ready(function() {
         console.log("This is the end");
         clear();
         var questionDiv = $(".question");
-
         questionDiv.append("Number of Correct Answers: " + triviaGame.correct); //append the correct counter
         questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect); //append the incorrect counter
         questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped); //append the skipped counter
+        questionDiv.append("<br> <img src='assets/img/groot2.gif'>");
+
         questionDiv.append("<br><button id='playAgain'>Play Again?</button>"); //Play again?
         $("#playAgain").on("click", function() {
             $("#playAgain").hide();
