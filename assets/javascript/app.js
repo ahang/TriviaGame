@@ -7,21 +7,22 @@ $(document).ready(function() {
         incorrect: 0,
         numQues: 0,
         skipped: 0,
-        timer: 4,
-        counter: 0,
+        timer: 0,
         currentQues: -1,
 
         //Setting up the question object array with question/choices/answer
         questions: [
             {
-                question: "Who was the first villian Goku faced in Dragon Ball Z?",
-                choices: ["Vegeta", "Nappa", "Raditz", "Piccolo"],
-                ans: 2
+                question: "I am ...?",
+                choices: ["Grot", "Grt", "Groot", "Grotto"],
+                ans: 2,
+                img: "assets/img/groot.gif"
             },
             {
-                question: "When did Goku first achieved Super Saiyan?",
-                choices: ["After fighting Vegeta", "After witnessing the death of Krillin", "After Freiza gave him a hug", "All the above"],
-                ans: 1
+                question: "Who is Peter Quill?",
+                choices: ["Star Lord", "Star Destroyer", "Star Eater", "Star King"],
+                ans: 0,
+                img: "assets/img/starlord.gif"
             },
             {
                 question: "Who gave Future Trunks his sword?",
@@ -54,8 +55,8 @@ $(document).ready(function() {
 
     //starts the game and starts showing the first question
     var startGame =  function() {
-        console.log("I have begun the game!");
-        $("#startButton").hide();
+        //console.log("I have begun the game!");
+        $("#startButton").hide(); //Hide the startBtn
         showQuestion();
     };
 
@@ -67,27 +68,32 @@ $(document).ready(function() {
 
 //shows the question from the array
     var showQuestion = function() {
+        //check to make sure the questions will keep going depending on how many questions are in the array
         if (triviaGame.currentQues < triviaGame.questions.length) {
-            triviaGame.currentQues++;
+            triviaGame.currentQues++; //increase the currentQues count by one to keep track
             var currentQues = triviaGame.questions[triviaGame.currentQues].question;
-            begin();
-            $(".question").html(currentQues);
+            begin(); //timer!
+            $(".question").html(currentQues); //input the current question to the question div
+            //loops through to print the choices on the page
             for (var i = 0; i < triviaGame.questions[triviaGame.currentQues].choices.length; i++){
                 var addBtn = $("<div>")
-                addBtn.addClass("btn options");
-                addBtn.data("num", i);
-                addBtn.text(triviaGame.questions[triviaGame.currentQues].choices[i]);
-                $(".choices").append(addBtn);
+                addBtn.addClass("btn options"); //adds the btn and options class
+                addBtn.data("num", i); //what i am comparing it to
+                addBtn.on("click", compare); //adds click handler to compare the user selector vs actual answer
+                addBtn.text(triviaGame.questions[triviaGame.currentQues].choices[i]); //text!
+                $(".choices").append(addBtn); //appends it to the choices div
             }
-            console.log("THIS IS question");
+            //console.log("THIS IS question");
         } else {
+            //Brings user to the endScreen if the currentQues greater than the length of the array
             endScreen();
         }
     };
 
     //compares if the user selection is correct
     var compare = function() {
-        if($(this).data("num") === triviaGame.questions[triviaGame.currentQues].ans) {
+        //checking the data"num" and comparing it to the answer index
+        if ($(this).data("num") === triviaGame.questions[triviaGame.currentQues].ans) {
             correctAns();
         } else {
             incorrectAns();
@@ -121,34 +127,38 @@ $(document).ready(function() {
     var stop = function() {
         clearInterval(triviaGame.counter);
     };
-
+    //If the user answer the question correctly. increase the correct counter by 1 and prints a gif?
     var correctAns = function() {
+        var question = triviaGame.questions[triviaGame.currentQues];
         clear();
         triviaGame.correct++;
         $(".question").empty();
         setTimeout(function() {
             showQuestion();
-        }, 3000);
+        }, 4000);
         $(".question").append("Nice Job!");
+        $(".question").append("<br><img src=" + question.img + ">");
     };
-
+    //If the user answer incorrectly, increasing the incorrect counter by 1, shows the answer and prints the gif
     var incorrectAns = function() {
         var question = triviaGame.questions[triviaGame.currentQues];
         clear();
         triviaGame.incorrect++;
         $(".question").empty();
         $(".question").append("Sorry the correct answer is " +  "<br>" + question.choices[question.ans]);
+        $(".question").append("<br><img src=" + question.img + ">");
         setTimeout(function() {
             showQuestion();
         }, 3000);
     };
 
-    //What happens when the user timesout on a question
+    //What happens when the user timesout on a question, increased the skipped counter by 1 and prints the gif
     var skippedAns = function() {
         var question = triviaGame.questions[triviaGame.currentQues];
         clear();
         triviaGame.skipped++;
         $(".question").append("What took slowpoke. The answer is " + "<br>" + question.choices[question.ans]);
+        $(".question").append("<br><img src=" + question.img + ">");
         console.log(triviaGame.skipped);
         setTimeout(function() {
             showQuestion();
@@ -160,10 +170,10 @@ $(document).ready(function() {
         console.log("This is the end");
         var questionDiv = $(".question");
         $(".timer").empty();
-        questionDiv.append("Number of Correct Answers: " + triviaGame.correct);
-        questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect);
-        questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped);
-        questionDiv.append("<br><button id='playAgain'>Play Again?</button>");
+        questionDiv.append("Number of Correct Answers: " + triviaGame.correct); //append the correct counter
+        questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect); //append the incorrect counter
+        questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped); //append the skipped counter
+        questionDiv.append("<br><button id='playAgain'>Play Again?</button>"); //Play again?
         $("#playAgain").on("click", function() {
             $("#playAgain").hide();
             triviaGame.correct = 0;
@@ -174,7 +184,7 @@ $(document).ready(function() {
             showQuestion();
         })
     };
-
+    //clearing out divs and stopping the count down timer
     var clear = function() {
         stop();
         $(".question").empty();
@@ -205,7 +215,6 @@ $(document).ready(function() {
         startGame();
     })
 
-    $(".choices").on("click", compare);
 
 });
 
