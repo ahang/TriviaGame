@@ -9,9 +9,7 @@ $(document).ready(function() {
         skipped: 0,
         timer: 4,
         counter: 0,
-        questionArr: [],
         currentQues: 0,
-        i: "",
 
         //Setting up the question object array with question/choices/answer
         questions: [
@@ -51,106 +49,119 @@ $(document).ready(function() {
                 choices: ["Goku", "Future Trunks", "Piccolo", "Goten"],
                 ans: "Future Trunks"
             }
-        ],
+        ]
+    };
 
-        //starts the game and starts showing the first question
-        startGame: function() {
-            console.log("I have begun the game!");
-            $("#startButton").hide();
-            //triviaGame.showQuestion();
-            triviaGame.showQuestion();
-        },
-        //This should randomize the questions 
-        randomQuestion: function() {
+    //starts the game and starts showing the first question
+    var startGame =  function() {
+        console.log("I have begun the game!");
+        $("#startButton").hide();
 
 
-        },
+        showQuestion();
+    };
+    //This should randomize the questions 
+    var randomQuestion = function() {
+        console.log("To randomize ze question one day");
 
-        //shows the question from the array
-        showQuestion: function() {
-            triviaGame.begin();
-            $(".question").html(triviaGame.questions[0].question)
-            console.log("THIS IS QUESTIOn");
-        },
+    };
 
-        nextQuestion: function() {
-        },
-        //compares if the user selection is correct 
-        compare: function() {
-        },
-        
-        //setting up the counter to decrease the timer by 1 second
-        begin: function() {
-            triviaGame.timer = 4;
-            triviaGame.counter = setInterval(triviaGame.countDown, 1000);
-            triviaGame.updateTimer();
-        },
-        //Updating the timer on the page
-        updateTimer: function( time ) {
-            $(".timer").html("Time Remaining: " + triviaGame.timer + " seconds");
-        },
-        //Begin Countdown! and checking to see if the timer is equal to 0. 
-        countDown: function() {
-            console.log("Tick Tock Tick Tock");
-            triviaGame.timer--;
-            triviaGame.updateTimer();
-            if(triviaGame.timer === 0){
-                //If its 0. Stop the countdown
-                triviaGame.stop();
-                triviaGame.skippedAns();
-            }
-        },
-        //clearInterval
-        stop: function() {
-            clearInterval(triviaGame.counter);
-        },
+    //shows the question from the array
+    var showQuestion = function() {
 
-        correctAns: function() {
-            triviaGame.correct++;
-            $(".question").empty();
-        },
+        // for (var i = 0; i < triviaGame.questions.length; i++) {
+        //     console.log(triviaGame.questions[i].question);
+        // }
+            
+        var currentQues = triviaGame.questions[triviaGame.counter].question;
+        triviaGame.counter++;
 
-        incorrectAns: function() {
-            triviaGame.incorrect++;
-            $(".question").empty();
-        },
-        //What happens when the user timesout on a question
-        skippedAns: function() {
-            triviaGame.clear();
-            triviaGame.skipped++;
-            console.log(triviaGame.skipped);
-            setTimeout(function() {
-                triviaGame.showQuestion();
-            }, 3000);
-            $(".question").append("What took slowpoke");
-        },
+        begin(); 
+        $(".question").html(currentQues);
+        console.log("THIS IS QUESTIOn");
+    };
 
-        //End Screen
-        endScreen: function() {
-            console.log("This is the end");
-            var questionDiv = $(".question");
-            $(".timer").empty();
-            questionDiv.append("Number of Correct Answers: " + triviaGame.correct);
-            questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect);
-            questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped);
-            questionDiv.append("<br><button id='playAgain'>Play Again?</button>");
-            $("#playAgain").on("click", function() {
-                $("#playAgain").hide();
-                triviaGame.clear();
-                triviaGame.showQuestion();
-            })
-        },
+    var nextQuestion = function() {
+    };
 
-        clear: function() {
-            triviaGame.correct = 0;
-            triviaGame.incorrect = 0;
-            triviaGame.incorrect = 0;
-            triviaGame.skipped = 0;
-            $(".question").empty();
-            $(".timer").empty();
+    //compares if the user selection is correct 
+    var compare = function() {
+    };
+    
+    //setting up the counter to decrease the timer by 1 second
+    var begin = function() {
+        triviaGame.timer = 3000;
+        triviaGame.counter = setInterval(countDown, 1000);
+        updateTimer();
+    };
 
+    //Updating the timer on the page
+    var updateTimer = function( time ) {
+        $(".timer").html("Time Remaining: " + triviaGame.timer + " seconds");
+    };
+    
+    //Begin Countdown! and checking to see if the timer is equal to 0. 
+    var countDown = function() {
+        console.log("Tick Tock Tick Tock");
+        triviaGame.timer--;
+        updateTimer();
+        if(triviaGame.timer === 0){
+            //If its 0. Stop the countdown
+            stop();
+            skippedAns();
         }
     };
+    //clearInterval
+    var stop = function() {
+        clearInterval(triviaGame.counter);
+    };
+
+    var correctAns = function() {
+        triviaGame.correct++;
+        $(".question").empty();
+    };
+
+    var incorrectAns = function() {
+        triviaGame.incorrect++;
+        $(".question").empty();
+    };
+
+    //What happens when the user timesout on a question
+    var skippedAns = function() {
+        clear();
+        triviaGame.skipped++;
+        console.log(triviaGame.skipped);
+        setTimeout(function() {
+            triviaGame.showQuestion();
+        }, 3000);
+        $(".question").append("What took slowpoke");
+    };
+
+    //End Screen
+    var endScreen = function() {
+        console.log("This is the end");
+        var questionDiv = $(".question");
+        $(".timer").empty();
+        questionDiv.append("Number of Correct Answers: " + triviaGame.correct);
+        questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect);
+        questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped);
+        questionDiv.append("<br><button id='playAgain'>Play Again?</button>");
+        $("#playAgain").on("click", function() {
+            $("#playAgain").hide();
+            triviaGame.clear();
+            triviaGame.showQuestion();
+        })
+    };
+
+    var clear = function() {
+        triviaGame.correct = 0;
+        triviaGame.incorrect = 0;
+        triviaGame.incorrect = 0;
+        triviaGame.skipped = 0;
+        $(".question").empty();
+        $(".timer").empty();
+    };
+
 
 
     //Theme?
@@ -171,7 +182,7 @@ $(document).ready(function() {
                 //debugger;
     //on click game start
     $("#startButton").on("click", function() {
-        triviaGame.startGame();
+        startGame();
     })
 
 
