@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     console.log("Ready");
-    
+
     var triviaGame = {
         correct: 0,
         incorrect: 0,
@@ -56,11 +56,9 @@ $(document).ready(function() {
     var startGame =  function() {
         console.log("I have begun the game!");
         $("#startButton").hide();
-
-
         showQuestion();
     };
-    //This should randomize the questions 
+    //This should randomize the questions
     var randomQuestion = function() {
         console.log("To randomize ze question one day");
 
@@ -68,29 +66,29 @@ $(document).ready(function() {
 
     //shows the question from the array
     var showQuestion = function() {
-
-        // for (var i = 0; i < triviaGame.questions.length; i++) {
-        //     console.log(triviaGame.questions[i].question);
-        // }
-            
         var currentQues = triviaGame.questions[triviaGame.counter].question;
-        triviaGame.counter++;
-
-        begin(); 
+        //triviaGame.counter++;
+        begin();
         $(".question").html(currentQues);
+        for (var i = 0; i < triviaGame.questions[triviaGame.counter].choices.length; i++){
+            //var addBtn = $("<div>")
+            //addBtn.addClass("btn");
+            //addBtn.data("data-num", i);
+            $(".choices").append("<data-num=" + i + ">" + triviaGame.questions[triviaGame.counter].choices[i]);
+        }
         console.log("THIS IS QUESTIOn");
     };
 
     var nextQuestion = function() {
     };
 
-    //compares if the user selection is correct 
+    //compares if the user selection is correct
     var compare = function() {
     };
-    
+
     //setting up the counter to decrease the timer by 1 second
     var begin = function() {
-        triviaGame.timer = 3000;
+        triviaGame.timer = 20;
         triviaGame.counter = setInterval(countDown, 1000);
         updateTimer();
     };
@@ -99,8 +97,8 @@ $(document).ready(function() {
     var updateTimer = function( time ) {
         $(".timer").html("Time Remaining: " + triviaGame.timer + " seconds");
     };
-    
-    //Begin Countdown! and checking to see if the timer is equal to 0. 
+
+    //Begin Countdown! and checking to see if the timer is equal to 0.
     var countDown = function() {
         console.log("Tick Tock Tick Tock");
         triviaGame.timer--;
@@ -132,7 +130,7 @@ $(document).ready(function() {
         triviaGame.skipped++;
         console.log(triviaGame.skipped);
         setTimeout(function() {
-            triviaGame.showQuestion();
+            showQuestion();
         }, 3000);
         $(".question").append("What took slowpoke");
     };
