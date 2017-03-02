@@ -89,7 +89,7 @@ $(document).ready(function() {
 
     var gameCheck = function() {
         //check to make sure the questions will keep going depending on how many questions are in the array
-        if (triviaGame.currentQues < 6) {
+        if (triviaGame.currentQues < triviaGame.questions.length-1) {
             triviaGame.currentQues++; //increase the currentQues count by one to keep track
             showQuestion();
         } else {
