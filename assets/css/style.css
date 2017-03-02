@@ -1,6 +1,6 @@
 @font-face {
     font-family: guardians;
-    src: url("assets/fonts/Guardians.ttf");
+    src: url("../fonts/Guardians.ttf");
 }
 
 body {
@@ -13,8 +13,8 @@ body {
     font-size: 40px;
     width: 50%;
     margin: 0 auto;
-    background-color: purple;
-    color: yellow;
+    background-color: pink;
+    color: white;
 }
 
 .col-md-8 {
@@ -25,7 +25,7 @@ body {
 
 .timer {
     font-size: 40px;
-    color: yellow;
+    color: white;
     background-color: purple;
 }
 

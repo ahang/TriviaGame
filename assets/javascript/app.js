@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-    console.log("Ready");
+    //console.log("Ready");
 
     var triviaGame = {
         correct: 0,
