@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-    //console.log("Ready");
+    console.log("Ready");
 
     var triviaGame = {
         correct: 0,
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
     //setting up the counter to decrease the timer by 1 second
     var begin = function() {
-        triviaGame.timer = 10000;
+        triviaGame.timer = 20;
         triviaGame.counter = setInterval(countDown, 1000);
         updateTimer();
     };
@@ -204,24 +204,6 @@ $(document).ready(function() {
         $(".choices").empty();
     };
 
-
-
-    //Theme?
-//start Function
-    //Time Remaining 30 Seconds
-    //Question, 4 Choices
-        //Choose Answer
-            //Pause Timer
-                //Inform user if the answer is correct and if its wrong what the correct answer is
-                    //Picture
-                //3 Seconds for next question
-                //Reset Timer for next questions
-                    //if Timer is goes to 0, takes the user to out of time and the correct answer
-                //When selecting correct answer display correct and the related image
-                //Loops through all questions
-                //Shows how many correct answer and incorrect answer and unanswered
-                //gives users Start Over option
-                //debugger;
     //on click game start
     $("#startButton").on("click", function() {
         startGame();
@@ -230,3 +212,20 @@ $(document).ready(function() {
 
 });
 
+///////////////////////////////////////////////////////////////////////////////////
+//Theme? - done
+//start Function - done
+//Time Remaining 30 Seconds - 20 seconds timer
+//Question, 4 Choices - done
+//Choose Answer - done
+//Pause Timer - done stop timer
+//Inform user if the answer is correct and if its wrong what the correct answer is - done
+//Picture - done
+//3 Seconds for next question - done
+//Reset Timer for next questions - done
+//if Timer is goes to 0, takes the user to out of time and the correct answer - done
+//When selecting correct answer display correct and the related image - done
+//Loops through all questions - done
+//Shows how many correct answer and incorrect answer and unanswered - done
+//Gives users Start Over option - done
+////////////////////////////////////////////////////////////////////////////////////
