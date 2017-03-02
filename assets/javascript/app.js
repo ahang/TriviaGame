@@ -9,7 +9,7 @@ $(document).ready(function() {
         skipped: 0,
         timer: 4,
         counter: 0,
-        currentQues: 0,
+        currentQues: -1,
 
         //Setting up the question object array with question/choices/answer
         questions: [
@@ -58,52 +58,45 @@ $(document).ready(function() {
         $("#startButton").hide();
         showQuestion();
     };
+
     //This should randomize the questions
     var randomQuestion = function() {
         console.log("To randomize ze question one day");
 
     };
 
-    //shows the question from the array
-    var showQuestion = function() {
-        var currentQues = triviaGame.questions[triviaGame.counter].question;
-
-        console.log(triviaGame.counter);
-        begin();
-        $(".question").html(currentQues);
-        for (var i = 0; i < triviaGame.questions[triviaGame.counter].choices.length; i++){
-            var addBtn = $("<div>");
-            addBtn.addClass("btn");
-            addBtn.data("data-num", i);
-            addBtn.text(triviaGame.questions[triviaGame.counter].choices[i]);
-            $(".choices").append(addbtn);
-        }
-        console.log("THIS IS QUESTION");
-    };
-
 //shows the question from the array
     var showQuestion = function() {
-        var currentQues = triviaGame.questions[triviaGame.currentQues].question;
-        triviaGame.currentQues++;
-        begin();
-        $(".question").html(currentQues);
-        for (var i = 0; i < triviaGame.questions[triviaGame.currentQues].choices.length; i++){
-            var addBtn = $("<div>")
-            addBtn.addClass("btn");
-            addBtn.data("data-num", i);
-            addBtn.text(triviaGame.questions[triviaGame.currentQues].choices[i]);
-            $(".choices").append(addBtn);
+        if (triviaGame.currentQues < 6) {
+            triviaGame.currentQues++;
+            var currentQues = triviaGame.questions[triviaGame.currentQues].question;
+            begin();
+            $(".question").html(currentQues);
+            for (var i = 0; i < triviaGame.questions[triviaGame.currentQues].choices.length; i++){
+                var addBtn = $("<div>")
+                addBtn.addClass("btn options");
+                addBtn.data("data-num", i);
+                addBtn.text(triviaGame.questions[triviaGame.currentQues].choices[i]);
+                $(".choices").append(addBtn);
+            }
+            console.log("THIS IS question");
+        } else {
+            endScreen();
         }
-        console.log("THIS IS question");
     };
 
     //compares if the user selection is correct
     var compare = function() {
+        if($(this).data("num") === triviaGame.questions[triviaGame.currentQues].ans) {
+            correctAns();
+        } else {
+            incorrectAns();
+        }
     };
 
     //setting up the counter to decrease the timer by 1 second
     var begin = function() {
-        triviaGame.timer = 4;
+        triviaGame.timer = 10000;
         triviaGame.counter = setInterval(countDown, 1000);
         updateTimer();
     };
@@ -130,27 +123,34 @@ $(document).ready(function() {
     };
 
     var correctAns = function() {
+        clear();
         triviaGame.correct++;
-        triviaGame.counter++;
         $(".question").empty();
+        setTimeout(function() {
+            showQuestion();
+        }, 3000);
+        $(".question").append("Nice Job!");
     };
 
     var incorrectAns = function() {
+        clear();
         triviaGame.incorrect++;
-        triviaGame.counter++;
         $(".question").empty();
+        $(".question").append("Sorry the correct answer is " +  "<br>" + triviaGame.questions[triviaGame.currentQues].ans);
+        setTimeout(function() {
+            showQuestion();
+        }, 3000);
     };
 
     //What happens when the user timesout on a question
     var skippedAns = function() {
         clear();
         triviaGame.skipped++;
-        triviaGame.counter++;
+        $(".question").append("What took slowpoke");
         console.log(triviaGame.skipped);
         setTimeout(function() {
             showQuestion();
-        }, 3000);
-        $(".question").append("What took slowpoke");
+        }, 1000);
     };
 
     //End Screen
@@ -167,7 +167,7 @@ $(document).ready(function() {
             triviaGame.correct = 0;
             triviaGame.incorrect = 0;
             triviaGame.skipped = 0;
-            triviaGame.counter = 0;
+            triviaGame.currentQues = -1;
             clear();
             showQuestion();
         })
@@ -200,6 +200,15 @@ $(document).ready(function() {
     //on click game start
     $("#startButton").on("click", function() {
         startGame();
+    })
+    $(".choices").on("click", function() {
+        console.log("This is checking");
+        if($(this).data("num") === triviaGame.questions[triviaGame.currentQues].ans) {
+            correntAns();
+        } else {
+            incorrectAns();
+        }
+        console.log("I have selected a button");
     })
 
 
