@@ -16,7 +16,7 @@ $(document).ready(function() {
             {
                 question: "Who was the first villian Goku faced in Dragon Ball Z?",
                 choices: ["Vegeta", "Nappa", "Raditz", "Piccolo"],
-                ans: 3
+                ans: 2
             },
             {
                 question: "When did Goku first achieved Super Saiyan?",
@@ -145,9 +145,10 @@ $(document).ready(function() {
 
     //What happens when the user timesout on a question
     var skippedAns = function() {
+        var question = triviaGame.questions[triviaGame.currentQues];
         clear();
         triviaGame.skipped++;
-        $(".question").append("What took slowpoke");
+        $(".question").append("What took slowpoke. The answer is " + "<br>" + question.choices[question.ans]);
         console.log(triviaGame.skipped);
         setTimeout(function() {
             showQuestion();
@@ -203,14 +204,8 @@ $(document).ready(function() {
     $("#startButton").on("click", function() {
         startGame();
     })
-    $(".choices").on("click", function() {
-        console.log("This is checking");
-        compare();
-        console.log("I have selected a button");
-    })
 
-
-
+    $(".choices").on("click", compare);
 
 });
 
