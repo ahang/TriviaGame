@@ -60,7 +60,7 @@ $(document).ready(function() {
     var startGame =  function() {
         //console.log("I have begun the game!");
         $("#startButton").hide(); //Hide the startBtn
-        showQuestion();
+        gameCheck();
     };
 
     //This should randomize the questions
@@ -71,9 +71,6 @@ $(document).ready(function() {
 
 //shows the question from the array
     var showQuestion = function() {
-        //check to make sure the questions will keep going depending on how many questions are in the array
-        if (triviaGame.currentQues < triviaGame.questions.length) {
-            triviaGame.currentQues++; //increase the currentQues count by one to keep track
             var currentQues = triviaGame.questions[triviaGame.currentQues].question;
             begin(); //timer!
             $(".question").html(currentQues); //input the current question to the question div
@@ -87,6 +84,14 @@ $(document).ready(function() {
                 $(".choices").append(addBtn); //appends it to the choices div
             }
             //console.log("THIS IS question");
+
+        };
+
+    var gameCheck = function() {
+        //check to make sure the questions will keep going depending on how many questions are in the array
+        if (triviaGame.currentQues < 6) {
+            triviaGame.currentQues++; //increase the currentQues count by one to keep track
+            showQuestion();
         } else {
             //Brings user to the endScreen if the currentQues greater than the length of the array
             endScreen();
@@ -137,7 +142,7 @@ $(document).ready(function() {
         triviaGame.correct++;
         $(".question").empty();
         setTimeout(function() {
-            showQuestion();
+            gameCheck();
         }, 4000);
         $(".question").append("Nice Job!");
         $(".question").append("<br><img src=" + question.img + ">");
@@ -151,7 +156,7 @@ $(document).ready(function() {
         $(".question").append("Sorry the correct answer is " +  "<br>" + question.choices[question.ans]);
         $(".question").append("<br><img src=" + question.img + ">");
         setTimeout(function() {
-            showQuestion();
+            gameCheck();
         }, 3000);
     };
 
@@ -164,15 +169,16 @@ $(document).ready(function() {
         $(".question").append("<br><img src=" + question.img + ">");
         console.log(triviaGame.skipped);
         setTimeout(function() {
-            showQuestion();
+            gameCheck();
         }, 1000);
     };
 
     //End Screen
     var endScreen = function() {
         console.log("This is the end");
+        clear();
         var questionDiv = $(".question");
-        $(".timer").empty();
+
         questionDiv.append("Number of Correct Answers: " + triviaGame.correct); //append the correct counter
         questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect); //append the incorrect counter
         questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped); //append the skipped counter
@@ -184,7 +190,7 @@ $(document).ready(function() {
             triviaGame.skipped = 0;
             triviaGame.currentQues = -1;
             clear();
-            showQuestion();
+            gameCheck();
         })
     };
     //clearing out divs and stopping the count down timer
