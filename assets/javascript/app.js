@@ -67,19 +67,34 @@ $(document).ready(function() {
     //shows the question from the array
     var showQuestion = function() {
         var currentQues = triviaGame.questions[triviaGame.counter].question;
-        //triviaGame.counter++;
+
+        console.log(triviaGame.counter);
         begin();
         $(".question").html(currentQues);
         for (var i = 0; i < triviaGame.questions[triviaGame.counter].choices.length; i++){
-            //var addBtn = $("<div>")
-            //addBtn.addClass("btn");
-            //addBtn.data("data-num", i);
-            $(".choices").append("<data-num=" + i + ">" + triviaGame.questions[triviaGame.counter].choices[i]);
+            var addBtn = $("<div>");
+            addBtn.addClass("btn");
+            addBtn.data("data-num", i);
+            addBtn.text(triviaGame.questions[triviaGame.counter].choices[i]);
+            $(".choices").append(addbtn);
         }
-        console.log("THIS IS QUESTIOn");
+        console.log("THIS IS QUESTION");
     };
 
-    var nextQuestion = function() {
+//shows the question from the array
+    var showQuestion = function() {
+        var currentQues = triviaGame.questions[triviaGame.currentQues].question;
+        triviaGame.currentQues++;
+        begin();
+        $(".question").html(currentQues);
+        for (var i = 0; i < triviaGame.questions[triviaGame.currentQues].choices.length; i++){
+            var addBtn = $("<div>")
+            addBtn.addClass("btn");
+            addBtn.data("data-num", i);
+            addBtn.text(triviaGame.questions[triviaGame.currentQues].choices[i]);
+            $(".choices").append(addBtn);
+        }
+        console.log("THIS IS question");
     };
 
     //compares if the user selection is correct
@@ -88,7 +103,7 @@ $(document).ready(function() {
 
     //setting up the counter to decrease the timer by 1 second
     var begin = function() {
-        triviaGame.timer = 20;
+        triviaGame.timer = 4;
         triviaGame.counter = setInterval(countDown, 1000);
         updateTimer();
     };
@@ -116,11 +131,13 @@ $(document).ready(function() {
 
     var correctAns = function() {
         triviaGame.correct++;
+        triviaGame.counter++;
         $(".question").empty();
     };
 
     var incorrectAns = function() {
         triviaGame.incorrect++;
+        triviaGame.counter++;
         $(".question").empty();
     };
 
@@ -128,6 +145,7 @@ $(document).ready(function() {
     var skippedAns = function() {
         clear();
         triviaGame.skipped++;
+        triviaGame.counter++;
         console.log(triviaGame.skipped);
         setTimeout(function() {
             showQuestion();
@@ -146,18 +164,19 @@ $(document).ready(function() {
         questionDiv.append("<br><button id='playAgain'>Play Again?</button>");
         $("#playAgain").on("click", function() {
             $("#playAgain").hide();
-            triviaGame.clear();
-            triviaGame.showQuestion();
+            triviaGame.correct = 0;
+            triviaGame.incorrect = 0;
+            triviaGame.skipped = 0;
+            triviaGame.counter = 0;
+            clear();
+            showQuestion();
         })
     };
 
     var clear = function() {
-        triviaGame.correct = 0;
-        triviaGame.incorrect = 0;
-        triviaGame.incorrect = 0;
-        triviaGame.skipped = 0;
         $(".question").empty();
         $(".timer").empty();
+        $(".choices").empty();
     };
 
 
