@@ -1,8 +1,40 @@
+@font-face {
+    font-family: guardians;
+    src: url("assets/fonts/Guardians.ttf");
+}
+
+body {
+    background: url(../img/bg.jpg);
+    font: white;
+}
+
+.heading {
+    font-family: guardians;
+    font-size: 40px;
+    width: 50%;
+    margin: 0 auto;
+    background-color: purple;
+    color: yellow;
+}
+
 .col-md-8 {
-    border: 2px solid red;
-    height: 500px;
+    /*border: 2px solid red;*/
+    height: 600px;
     text-align: center;
 }
+
+.timer {
+    font-size: 40px;
+    color: yellow;
+    background-color: purple;
+}
+
+.question {
+    font-size: 25px;
+    color: yellow;
+    background-color: purple;
+}
+
 
 .choices {
     width: 30%;
@@ -15,5 +47,12 @@
     margin-top: 10px;
     margin-bottom: 10px;
     border: 2px solid red;
+    color: yellow;
+    background-color: purple;
+    font-size: 40px;
 }
 
+.question img {
+    height: 500px;
+    width: 300px;
+}

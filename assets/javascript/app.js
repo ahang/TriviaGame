@@ -25,19 +25,22 @@ $(document).ready(function() {
                 img: "assets/img/starlord.gif"
             },
             {
-                question: "Who gave Future Trunks his sword?",
-                choices: ["Taipon", "Gohan", "Vegeta", "What sword?"],
-                ans: 0
+                question: "Drax's reflexes are too fast to catch what?",
+                choices: ["Nothing", "Metaphors", "Ball", "Food"],
+                ans: 1,
+                img: "assets/img/drax.gif"
             },
             {
-                question: "Gotenks is a fusion between what two characters?",
-                choices: ["Vegeta & Goku", "Trunks and Gohan", "Goten and Trunks", "Gohan and Piccolo"],
-                ans: 2
+                question: "Gamora is the adopted daughter of?",
+                choices: ["J'son", "Hulk", "She-Hulk", "Thanos"],
+                ans: 3,
+                img: "assets/img/gamora.gif"
             },
             {
-                question: "When Goku was a baby, who did he kept awake by crying constantlly?",
-                choices: ["Vegeta", "Gohan", "Goten", "Broly"],
-                ans: 3
+                question: "Rocket Raccoon was inspired by what band's song?",
+                choices: ["The Beatles", "The Rolling Stones", "Simon & Garfunkel", "Pink Floyd"],
+                ans: 0,
+                img: "assets/img/rocket.gif"
             },
             {
                 question: "Who defeated Cell?",
