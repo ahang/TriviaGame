@@ -2,6 +2,7 @@
 $(document).ready(function() {
     //console.log("Ready");
 
+    var introMusic = new Audio("assets/audio/hookedon.mp3");
     var triviaGame = {
         correct: 0,
         incorrect: 0,
@@ -205,6 +206,7 @@ $(document).ready(function() {
     //on click game start
     $("#startButton").on("click", function() {
         startGame();
+        introMusic.play();
 
     })
 
