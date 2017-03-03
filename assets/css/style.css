@@ -8,13 +8,30 @@ body {
     font: white;
 }
 
+.content {
+    background-color: purple;
+    height: 650px;
+}
+
+#startButton {
+    width: 500px;
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+#playAgain {
+    color: red;
+    margin-top: 25px;
+}
+
 .heading {
     font-family: guardians;
     font-size: 40px;
     width: 50%;
     margin: 0 auto;
-    background-color: pink;
+    background-color: purple;
     color: white;
+    margin-bottom: 10px;
 }
 
 .col-md-8 {
@@ -24,14 +41,21 @@ body {
 }
 
 .timer {
-    font-size: 40px;
-    color: white;
+    font-size: 25px;
+    color: yellow;
     background-color: purple;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .question {
-    font-size: 25px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 40px;
     color: yellow;
+    /*background-color: purple;*/
+    margin-top: 10px;
+    margin: 0 auto;
+    width: 80%;
     background-color: purple;
 }
 
@@ -47,12 +71,13 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     border: 2px solid red;
-    color: yellow;
-    background-color: purple;
+    color: black;
+    background-color: white;
     font-size: 40px;
+    font-family: 'Indie Flower', cursive;
 }
 
 .question img {
-    height: 500px;
+    height: 350px;
     width: 400px;
 }

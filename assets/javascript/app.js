@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-    console.log("Ready");
+    //console.log("Ready");
 
     var triviaGame = {
         correct: 0,
@@ -67,8 +67,7 @@ $(document).ready(function() {
 
     //This should randomize the questions
     var randomQuestion = function() {
-        console.log("To randomize ze question one day");
-
+        //console.log("To randomize ze question one day");
     };
 
 //shows the question from the array
@@ -124,7 +123,7 @@ $(document).ready(function() {
 
     //Begin Countdown! and checking to see if the timer is equal to 0.
     var countDown = function() {
-        console.log("Tick Tock Tick Tock");
+        //console.log("Tick Tock Tick Tock");
         triviaGame.timer--;
         updateTimer();
         if(triviaGame.timer === 0){
@@ -155,11 +154,11 @@ $(document).ready(function() {
         clear();
         triviaGame.incorrect++;
         $(".question").empty();
-        $(".question").append("Sorry the correct answer is " +  "<br>" + question.choices[question.ans]);
+        $(".question").append("Sorry, the correct answer is " +  "<br>" + question.choices[question.ans]);
         $(".question").append("<br><img src=" + question.img + ">");
         setTimeout(function() {
             gameCheck();
-        }, 3000);
+        }, 4000);
     };
 
     //What happens when the user timesout on a question, increased the skipped counter by 1 and prints the gif
@@ -167,24 +166,23 @@ $(document).ready(function() {
         var question = triviaGame.questions[triviaGame.currentQues];
         clear();
         triviaGame.skipped++;
-        $(".question").append("What took slowpoke. The answer is " + "<br>" + question.choices[question.ans]);
-        $(".question").append("<br><img src=" + question.img + ">");
-        console.log(triviaGame.skipped);
+        $(".question").append("What took slowpoke? The answer is " + "<br>" + question.choices[question.ans]);
+        $(".question").append("<br> <img src='assets/img/facepalm.gif'>");
+        //console.log(triviaGame.skipped);
         setTimeout(function() {
             gameCheck();
-        }, 1000);
+        }, 4000);
     };
 
     //End Screen
     var endScreen = function() {
-        console.log("This is the end");
+        //console.log("This is the end");
         clear();
         var questionDiv = $(".question");
         questionDiv.append("Number of Correct Answers: " + triviaGame.correct); //append the correct counter
         questionDiv.append("<br>Number of Incorrect Answers: " + triviaGame.incorrect); //append the incorrect counter
         questionDiv.append("<br>Number of Skipped Questions: " + triviaGame.skipped); //append the skipped counter
         questionDiv.append("<br> <img src='assets/img/groot2.gif'>");
-
         questionDiv.append("<br><button id='playAgain'>Play Again?</button>"); //Play again?
         $("#playAgain").on("click", function() {
             $("#playAgain").hide();
@@ -207,8 +205,8 @@ $(document).ready(function() {
     //on click game start
     $("#startButton").on("click", function() {
         startGame();
-    })
 
+    })
 
 });
 
