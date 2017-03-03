@@ -59,6 +59,7 @@ $(document).ready(function() {
         ]
     };
 
+
     //starts the game and starts showing the first question
     var startGame =  function() {
         //console.log("I have begun the game!");

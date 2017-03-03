@@ -59,6 +59,10 @@ body {
     background-color: purple;
 }
 
+.question p {
+    padding-top: 100px;
+}
+
 
 .choices {
     width: 40%;
